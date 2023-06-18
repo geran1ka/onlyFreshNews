@@ -39,16 +39,11 @@
   border: 1px solid #E6E6E6;
   border-radius: 22px;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
   font-size: 14px;
   line-height: 80%;
 }
 
 .form-search__input::placeholder {
-  font-family: 'Roboto';
-  font-weight: 300;
   font-size: 14px;
   line-height: 80%;
   color: #212121;
@@ -77,8 +72,6 @@
   border: 1px solid #E6E6E6;
   border-radius: 22px;
 
-  font-family: 'Roboto';
-  font-weight: 300;
   font-size: 14px;
   line-height: 80%;
 }
@@ -106,7 +99,7 @@
     flex-direction: column;
     column-gap: 30px;
     row-gap: 15px;
-    align-items: center;
+    align-items: end;
   }
 
   .form-search__fieldset-select {
@@ -116,7 +109,7 @@
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   .header__container {
     grid-template-columns: 1fr;
     row-gap: 15px;

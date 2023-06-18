@@ -17,6 +17,9 @@
 .footer__copyright {
   justify-self: center;
   align-self: self-end;
+  font-size: 12px;
+  line-height: 130%;
+  color: #212121;
 }
 
 .footer__social-list {
@@ -31,4 +34,39 @@
 
 .footer__social-link {
   display: block;
+}
+
+.footer__social-link {
+  display: block;
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 640px) {
+
+
+  .footer__container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      'logo social'
+      'copyright copyright';
+    align-items: center;
+  }
+
+  .footer__logo {
+    grid-area: logo;
+    max-width: 55px;
+  }
+
+  .footer__social-list {
+    grid-area: social;
+  }
+
+  .footer__copyright {
+    grid-area: copyright;
+  }
 }
