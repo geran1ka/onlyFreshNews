@@ -1,0 +1,34 @@
+.footer {
+  padding-top: 22px;
+  padding-bottom: 30px;
+  border-top: 1px solid #E6E6E6;
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+}
+
+.footer__logo {
+  margin-bottom: 10px;
+}
+
+.footer__copyright {
+  justify-self: center;
+  align-self: self-end;
+}
+
+.footer__social-list {
+  justify-self: end;
+  display: flex;
+  gap: 15px;
+}
+
+.footer__social-item {
+  line-height: 0;
+}
+
+.footer__social-link {
+  display: block;
+}
