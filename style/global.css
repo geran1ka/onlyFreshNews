@@ -52,9 +52,15 @@ button {
 
 h1,
 h2,
+h3,
 fieldset, p {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 ul {
@@ -75,8 +81,10 @@ ul {
 }
 
 .container {
-  max-width: 1440px;;
-  padding: 0 150px;
+  --padding: 150px;
+  --max-width: 1140px;
+  max-width: calc(var(--max-width) + var(--padding)*2);;
+  padding: 0 var(--padding);
   margin: 0 auto;
 }
 
@@ -98,8 +106,48 @@ ul {
 }
 
 .list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 270px);
   column-gap: 20px;
   row-gap: 40px;
-  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    --padding: 85px;
+  }
+  
+  
+}
+
+@media (max-width: 1024px) {
+  .container {
+    --padding: 880px
+    --padding: 30px;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .container {
+    --max-width: 620px;
+  }
+
+  .list {
+    grid-template-columns: repeat(auto-fill, 140px);
+    row-gap: 20px;
+  }
+  
+}
+
+@media (max-width: 540px) {
+  .container {
+    --padding: 15px;
+  }
+  
+  .list {
+    grid-template-columns: repeat(auto-fill, 140px);
+    row-gap: 10px;
+  }
 }
