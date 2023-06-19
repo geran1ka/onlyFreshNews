@@ -1,19 +1,43 @@
+import {startPagination} from '../../const.js';
+import {createContainer} from '../../createContainer.js';
+import {createElement} from '../../function/createElem.js';
 import {createItem} from '../news-item/createItem.js';
-import {createLatestNews} from './createLatestNews.js';
 
-export const renderLatestNews = (err, response) => {
+export const renderLatestNews = (err, data) => {
   if (err) {
     console.warn(err);
     return;
   }
-  const mane = document.querySelector('.news');
-  const {sectionLatestNews, latestNewsList} = createLatestNews();
-  let start = 0;
-  let end = 8;
-  response.articles.slice(start, end).map((item) => {
+
+  const sectionLatestNews = createElement('section', {
+    className: 'latest-news',
+  });
+
+  const latestNewsTitleWrapper = createElement('div', {
+    className: 'latest-news__title-wrapper title-wrapper',
+  }, {
+    append: createElement('div', {
+      className: 'container',
+    }, {
+      append: createElement('h2', {
+        className: 'latest-news__title title',
+        textContent: 'Свежие новости',
+      }),
+    }),
+  });
+  const container = createContainer();
+
+  const latestNewsList = createElement('ul', {
+    className: 'latest-news__list list',
+  });
+
+  data.articles.slice(startPagination, (startPagination + 8)).map((item) => {
     const li = createItem(item);
     latestNewsList.append(li);
   });
-  mane.append(sectionLatestNews);
-  return true;
+
+  container.append(latestNewsList);
+  sectionLatestNews.append(latestNewsTitleWrapper, container);
+
+  return sectionLatestNews;
 };
