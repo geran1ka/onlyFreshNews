@@ -112,6 +112,23 @@ ul {
   justify-content: space-evenly;
 }
 
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.overlay svg {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+from {
+  transform: rotate(360deg);
+}
+}
+
 @media (max-width: 1200px) {
   .container {
     --padding: 85px;

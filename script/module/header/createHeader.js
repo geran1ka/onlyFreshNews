@@ -48,6 +48,7 @@ export const createHeader = () => {
   const searchInput = createElement('input', {
     className: 'form-search__input',
     type: 'search',
+    name: 'search',
     placeholder: 'Я хочу узнать про...',
   });
 
@@ -72,17 +73,21 @@ export const createHeader = () => {
   });
 
   const optionFirst = createElement('option', {
-    value: 'Russia',
+    value: 'ru',
     textContent: 'Россия',
   });
 
   const optionSecond = createElement('option', {
-    value: 'USA',
+    value: 'us',
     textContent: 'США',
-
   });
 
-  searchSelect.append(optionFirst, optionSecond);
+  const optionThird = createElement('option', {
+    value: 'de',
+    textContent: 'Германия',
+  });
+
+  searchSelect.append(optionFirst, optionSecond, optionThird);
   fieldsetSelect.append(searchSelect);
   fieldsetSearch.append(searchInput, btnSearch);
   form.append(fieldsetSearch, fieldsetSelect);
@@ -91,6 +96,11 @@ export const createHeader = () => {
   header.append(headerContainer);
   console.log('header: ', header);
 
-  return {header};
+  return {
+    header,
+    form,
+    searchInput,
+    searchSelect,
+  };
 };
 

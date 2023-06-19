@@ -1,4 +1,6 @@
-export const fetchRequest = async (url, {
+const URL = 'https://newsapi.org/v2/';
+
+const fetchRequest = async (postfix, {
   method = 'get',
   callback,
   body,
@@ -10,17 +12,20 @@ export const fetchRequest = async (url, {
     };
 
     if (body) options.body = JSON.stringify(body);
-    if (headers) options.headers = JSON.stringify(headers);
+    if (headers) options.headers = headers;
 
-    const response = await fetch(url, options);
+    const response = await fetch(`${URL}${postfix}`, options);
 
     if (response.ok) {
       const data = await response.json();
-      if (callback) callback(null, data);
+      if (callback) return callback(null, data);
       return;
     }
+
     throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
   } catch (err) {
-    callback(err);
+    return callback(err);
   }
 };
+
+export default fetchRequest;
