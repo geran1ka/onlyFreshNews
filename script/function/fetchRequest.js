@@ -19,7 +19,7 @@ const fetchRequest = async (postfix, {
     if (response.ok) {
       const data = await response.json();
       if (callback) return callback(null, data);
-      return;
+      return data;
     }
 
     throw new Error(`Ошибка ${response.status}: ${response.statusText}`);

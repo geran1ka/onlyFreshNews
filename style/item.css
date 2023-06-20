@@ -39,6 +39,7 @@
 }
 
 .item__news-link {
+  height: 100%;
   display: block;     
   outline: 1px solid transparent;
   outline-offset: 2px;
@@ -83,6 +84,7 @@ outline-color: #F2994A;;
 }
 
 .item__description {
+  height: 100%;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
@@ -92,11 +94,13 @@ outline-color: #F2994A;;
 }
 
 .item__info {
+  height: 100%;
   display: flex;
   justify-content: space-between;
 }
 
 .item__published {
+  height: 100%;
   display: flex;
   gap: 12px;
   font-family: 'Roboto';
@@ -108,6 +112,7 @@ outline-color: #F2994A;;
 }
 
 .item__author {
+  height: 100%;
   font-family: 'Roboto';
   font-weight: 300;
   font-size: 10px;

@@ -73,7 +73,7 @@ export const renderHeader = () => {
   });
 
   const optionFirst = createElement('option', {
-    value: 'us',
+    value: 'ru',
     textContent: 'Россия',
   });
 
@@ -94,7 +94,6 @@ export const renderHeader = () => {
   nav.append(form);
   headerContainer.append(logo, nav);
   header.append(headerContainer);
-  console.log('header: ', header);
 
   return {
     header,
