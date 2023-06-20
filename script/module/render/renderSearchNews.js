@@ -38,13 +38,13 @@ export const renderSearchNews = (err, data) => {
 
   const searchNewsArr = data.articles.slice(startPagination, endPagination)
       .map(async (item) => await liLoad(item));
-  Promise.all([...searchNewsArr]).then(data => {
-    preload.remove();
+  return Promise.all([...searchNewsArr]).then(data => {
     newsList.append(...data);
     container.append(newsList);
     section.append(titleWrapper, container);
+    preload.remove();
+    return section;
   });
 
-  return section;
 };
 

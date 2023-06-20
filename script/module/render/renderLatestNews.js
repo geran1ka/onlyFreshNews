@@ -34,11 +34,13 @@ export const renderLatestNews = async (err, data) => {
   });
 
   const newsArr = data.articles.slice(startPagination, endPagination).map(async (item) => await liLoad(item));
-  Promise.all([...newsArr]).then(data => {
+  return Promise.all([...newsArr]).then(data => {
     newsList.append(...data);
     container.append(newsList);
     section.append(titleWrapper, container);
+    return true;
+  }).then(elem => {
     preload.remove();
+    return section;
   });
-  return section;
 };
