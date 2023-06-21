@@ -136,7 +136,7 @@ ul {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.overlay svg {
+.overlay .cirlcle {
   animation: rotate 2s linear infinite;
 }
 

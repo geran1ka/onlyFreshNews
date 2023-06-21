@@ -1,9 +1,8 @@
 import {createElement} from '../../function/createElem.js';
 import {liLoad} from '../../function/createItem.js';
+import {showError} from '../../function/showError.js';
 
-export const rLatestNews = (data, stop = 8) => {
-  console.log('stop: ', stop);
-
+export const rLatestNews = async (data, stop = 8) => {
   const section = createElement('section', {
     className: 'latest-news',
   });
@@ -28,11 +27,13 @@ export const rLatestNews = (data, stop = 8) => {
     className: 'list',
   });
 
-  const newsArr = data.slice(0, stop).map((item) => liLoad(item));
-  return Promise.all([...newsArr]).then(data => {
-    newsList.append(...data);
-    container.append(newsList);
-    section.append(titleWrapper, container);
-    return true;
-  }).then(elem => section);
+  const newsArr = data.slice(0, stop).map(async (item) => await liLoad(item));
+  return Promise.all([...newsArr])
+      .then(data => {
+        newsList.append(...data);
+        container.append(newsList);
+        section.append(titleWrapper, container);
+        return section;
+      })
+      .catch(err => showError());
 };

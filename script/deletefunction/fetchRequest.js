@@ -1,5 +1,3 @@
-import { endPagination } from "./const.js";
-
 const URL = 'https://newsapi.org/v2/';
 
 const fetchRequest = async (postfix, {
