@@ -4,3 +4,4 @@ export const page = document.querySelector('.page__wrapper');
 export const main = document.querySelector('.main');
 export let startPagination = 0;
 export let endPagination = 8;
+

@@ -1,11 +1,11 @@
 import {main, page} from './script/function/const.js';
-import fetchRequest from './script/deletefunction/fetchRequest.js';
 import {preload} from './script/function/preload.js';
 import {renderFooter} from './script/module/render/renderFooter.js';
 import {headerController} from './script/module/headerController.js';
 import {renderHeader} from './script/module/render/renderHeader.js';
 import {rLatestNews} from './script/module/render/renderLatestNews.js';
 import {showError} from './script/function/showError.js';
+import {paginationController} from './script/module/pageController.js';
 
 
 const init = () => {
@@ -37,6 +37,7 @@ const init = () => {
   page.append(renderFooter());
 
   headerController(form, searchInput);
+  paginationController();
 };
 
 init();

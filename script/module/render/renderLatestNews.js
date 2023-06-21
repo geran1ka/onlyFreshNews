@@ -3,6 +3,7 @@ import {liLoad} from '../../function/createItem.js';
 import {showError} from '../../function/showError.js';
 
 export const rLatestNews = async (data, stop = 8) => {
+  console.log('data: ', data);
   const section = createElement('section', {
     className: 'latest-news',
   });
@@ -19,6 +20,9 @@ export const rLatestNews = async (data, stop = 8) => {
       }),
     }),
   });
+
+
+
   const container = createElement('div', {
     className: 'container',
   });
