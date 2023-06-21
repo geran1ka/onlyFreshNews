@@ -19,9 +19,7 @@ const init = () => {
     callback: renderLatestNews,
   });
 
-  console.log(promise);
   promise.then(data => {
-    console.log('data: ', data);
     main.textContent = '';
     main.append(data);
   });
