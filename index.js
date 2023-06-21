@@ -19,7 +19,7 @@ const init = () => {
       },
     })
         .then(response => response.json())
-        .then(data => rLatestNews(data.articles))
+        .then(data => rLatestNews(data))
         .then(section => {
           main.append(section);
           preload.remove();

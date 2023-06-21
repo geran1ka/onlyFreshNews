@@ -23,7 +23,7 @@ export const headerController = (form) => {
             },
           })
               .then(response => response.json())
-              .then(data => rSearchNews(data.articles)),
+              .then(data => rSearchNews(data)),
 
           fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}`, {
             headers: {
@@ -31,7 +31,7 @@ export const headerController = (form) => {
             },
           })
               .then(response => response.json())
-              .then(data => rLatestNews(data.articles, 4))
+              .then(data => rLatestNews(data, 4))
               .catch(err => {
                 preload.remove();
                 return showError(err);
@@ -59,7 +59,7 @@ export const headerController = (form) => {
           },
         })
             .then(response => response.json())
-            .then(data => rLatestNews(data.articles))
+            .then(data => rLatestNews(data))
             .then(section => {
               main.append(section);
               preload.remove();

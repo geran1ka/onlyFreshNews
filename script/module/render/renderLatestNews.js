@@ -27,7 +27,7 @@ export const rLatestNews = async (data, stop = 8) => {
     className: 'list',
   });
 
-  const newsArr = data.slice(0, stop).map(async (item) => await liLoad(item));
+  const newsArr = data.articles.slice(0, stop).map(async (item) => await liLoad(item));
   return Promise.all([...newsArr])
       .then(data => {
         newsList.append(...data);

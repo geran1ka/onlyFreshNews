@@ -5,6 +5,7 @@ import {showError} from '../../function/showError.js';
 
 
 export const rSearchNews = async (data, stop = 8) => {
+  console.log('data: ', data);
   const section = createElement('section', {
     className: 'search-news',
   });
@@ -33,7 +34,7 @@ export const rSearchNews = async (data, stop = 8) => {
     className: 'list',
   });
 
-  const searchNewsArr = data.slice(startPagination, endPagination)
+  const searchNewsArr = data.articles.slice(startPagination, endPagination)
       .map(async (item) => await liLoad(item));
   return Promise.all([...searchNewsArr])
       .then(data => {
