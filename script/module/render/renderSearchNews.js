@@ -1,13 +1,9 @@
 import {endPagination, startPagination} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {liLoad} from '../../function/createItem.js';
-import { preload } from '../../function/preload.js';
 
-export const renderSearchNews = (err, data) => {
-  if (err) {
-    console.warn(err);
-    return;
-  }
+
+export const rSearchNews = (data, stop = 8) => {
   const section = createElement('section', {
     className: 'search-news',
   });
@@ -36,15 +32,14 @@ export const renderSearchNews = (err, data) => {
     className: 'list',
   });
 
-  const searchNewsArr = data.articles.slice(startPagination, endPagination)
-      .map(async (item) => await liLoad(item));
+  const searchNewsArr = data.slice(startPagination, endPagination)
+      .map((item) => liLoad(item));
   return Promise.all([...searchNewsArr]).then(data => {
     newsList.append(...data);
     container.append(newsList);
     section.append(titleWrapper, container);
-    preload.remove();
     return section;
   });
-
 };
+
 

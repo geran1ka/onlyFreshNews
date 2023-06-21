@@ -1,8 +1,8 @@
 import {main} from '../function/const.js';
-import fetchRequest from '../function/fetchRequest.js';
 import {preload} from '../function/preload.js';
-import {renderLatestNews} from './render/renderLatestNews.js';
-import {renderSearchNews} from './render/renderSearchNews.js';
+import {rLatestNews} from './render/renderLatestNews.js';
+import {rSearchNews} from './render/renderSearchNews.js';
+
 
 export const headerController = (form) => {
   form.addEventListener('submit', (e) => {
@@ -10,44 +10,33 @@ export const headerController = (form) => {
     e.preventDefault();
     const formData = new FormData(form);
     const search = Object.fromEntries(formData);
-    console.log('search: ', search.search);
+
     if (search.search) {
-      const data = Promise.all([
-        fetchRequest(`everything?q=${search.search ? search.search : ''}`, {
+      main.textContent = '';
+      Promise.all([
+        fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}`, {
           headers: {
             'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
           },
-          callback: renderSearchNews,
-        }),
+        })
+            .then(response => response.json())
+            .then(data => rSearchNews(data.articles)),
 
-        fetchRequest(`top-headlines?country=${search.country}`, {
+        fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}`, {
           headers: {
             'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
           },
-          callback: renderLatestNews,
-        }),
-      ]);
+        })
+            .then(response => response.json())
+            .then(data => rLatestNews(data.articles, 4)),
 
-      data.then(data => {
-        main.textContent = '';
-        if (data[0] && data[1]) {
-          preload.remove();
-          main.append(data[0]);
-          main.append(data[1]);
-        }
+      ]).then(data => {
+        main.append(data[0]);
+        main.append(data[1]);
+        preload.remove();
       });
     } else {
-      const promise = fetchRequest(`top-headlines?country=${search.country}`, {
-        headers: {
-          'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
-        },
-        callback: renderLatestNews,
-      });
-
-      promise.then(data => {
-        main.textContent = '';
-        main.append(data);
-      });
+      console.log('не туда');
     }
   });
 };

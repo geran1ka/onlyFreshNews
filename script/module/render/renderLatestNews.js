@@ -1,13 +1,8 @@
-import {endPagination, startPagination} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {liLoad} from '../../function/createItem.js';
-import {preload} from '../../function/preload.js';
 
-export const renderLatestNews = async (err, data) => {
-  if (err) {
-    console.warn(err);
-    return;
-  }
+export const rLatestNews = (data, stop = 8) => {
+  console.log('stop: ', stop);
 
   const section = createElement('section', {
     className: 'latest-news',
@@ -33,14 +28,11 @@ export const renderLatestNews = async (err, data) => {
     className: 'list',
   });
 
-  const newsArr = data.articles.slice(startPagination, endPagination).map(async (item) => await liLoad(item));
+  const newsArr = data.slice(0, stop).map((item) => liLoad(item));
   return Promise.all([...newsArr]).then(data => {
     newsList.append(...data);
     container.append(newsList);
     section.append(titleWrapper, container);
     return true;
-  }).then(elem => {
-    preload.remove();
-    return section;
-  });
+  }).then(elem => section);
 };
