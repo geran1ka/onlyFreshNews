@@ -1,4 +1,5 @@
 import {main} from '../function/const.js';
+import { fetchRequestAlt } from '../function/fetch.js';
 import {preload} from '../function/preload.js';
 import {showError} from '../function/showError.js';
 import {rLatestNews} from './render/renderLatestNews.js';
@@ -14,7 +15,7 @@ export const headerController = (form) => {
 
 
     if (search.search) {
-      main.textContent = '';
+
       try {
         Promise.all([
           fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}`, {
@@ -23,7 +24,12 @@ export const headerController = (form) => {
             },
           })
               .then(response => response.json())
-              .then(data => rSearchNews(data)),
+              .then(data => rSearchNews(data))
+              .catch(err => {
+                preload.remove();
+                return showError(err);
+              }),
+          //fetchRequestAlt('top-headlines?country=', search.country, rLatestNews, 4),
 
           fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}`, {
             headers: {
@@ -38,8 +44,10 @@ export const headerController = (form) => {
               }),
         ])
             .then(data => {
+              main.textContent = '';
               main.append(data[0]);
               main.append(data[1]);
+              console.log('data[1]: ', data[1]);
               preload.remove();
             })
             .catch(err => {
@@ -51,27 +59,8 @@ export const headerController = (form) => {
         showError(err);
       }
     } else {
-      try {
-        main.textContent = '';
-        fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}`, {
-          headers: {
-            'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
-          },
-        })
-            .then(response => response.json())
-            .then(data => rLatestNews(data))
-            .then(section => {
-              main.append(section);
-              preload.remove();
-            })
-            .catch(err => {
-              preload.remove();
-              return showError(err);
-            });
-      } catch (err) {
-        preload.remove();
-        showError(err);
-      }
+      main.textContent = '';
+      fetchRequestAlt('top-headlines?country=', search.country, rLatestNews, 8);
     }
   });
 };
