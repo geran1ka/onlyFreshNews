@@ -23,6 +23,12 @@ export const liLoad = (item) => new Promise(resolve => {
         li.append(itemContent);
         resolve(li);
       });
+
+      elem.addEventListener('error', () => {
+        elem.setAttribute('src', '/img/no-photo.jpg');
+        li.append(itemContent);
+        resolve(li);
+      });
     },
   });
 
@@ -83,6 +89,6 @@ export const liLoad = (item) => new Promise(resolve => {
   itemTitleLink.append(itemTitle);
   itemWrapperContent.append(itemTitleLink, itemNewsLinkWindow, itemDescription, itemInfo);
   itemContent.append(img, itemWrapperContent);
-
+  //resolve(li);
   return li;
 });

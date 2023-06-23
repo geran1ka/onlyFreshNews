@@ -1,4 +1,4 @@
-import { createElement } from "../../function/createElem.js";
+import {createElement} from '../../function/createElem.js';
 
 export const renderPagination = (data) => {
   const pagination = createElement('div', {

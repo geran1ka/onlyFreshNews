@@ -4,7 +4,7 @@ import {liLoad} from '../../function/createItem.js';
 import {showError} from '../../function/showError.js';
 
 
-export const rSearchNews = async (data, stop = 8) => {
+export const rSearchNews = async (data) => {
   console.log('data: ', data);
   const section = createElement('section', {
     className: 'search-news',
@@ -34,8 +34,7 @@ export const rSearchNews = async (data, stop = 8) => {
     className: 'list',
   });
 
-  const searchNewsArr = data.articles.slice(startPagination, endPagination)
-      .map(async (item) => await liLoad(item));
+  const searchNewsArr = data.articles.map(async (item) => await liLoad(item));
   return Promise.all([...searchNewsArr])
       .then(data => {
         newsList.append(...data);

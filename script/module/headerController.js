@@ -18,7 +18,7 @@ export const headerController = (form) => {
 
       try {
         Promise.all([
-          fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}&pageSize=6&page=1`, {
+          fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}&pageSize=9&page=1`, {
             headers: {
               'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
             },
@@ -31,7 +31,7 @@ export const headerController = (form) => {
               }),
           //fetchRequestAlt('top-headlines?country=', search.country, rLatestNews, 4),
 
-          fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}`, {
+          fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}&pageSize=6&page=1`, {
             headers: {
               'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
             },
@@ -60,7 +60,7 @@ export const headerController = (form) => {
       }
     } else {
       main.textContent = '';
-      fetchRequestAlt('top-headlines?country=', search.country, rLatestNews, 8);
+      fetchRequestAlt('top-headlines?country=', search.country, rLatestNews, 9, 1);
     }
   });
 };
