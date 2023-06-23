@@ -11,10 +11,13 @@
 .pagination__link {
   line-height: 0;
   color: var(--blue-color, #3670C7);
+  border: none;
+  background-color: inherit;
 }
 
-.pagination__link_disabled {
+.pagination__link:disabled {
   color: var(--gray-color, #8F8F8F);
+  pointer-events: none;
 }
 
 .pagination__list {

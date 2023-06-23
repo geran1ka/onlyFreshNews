@@ -1,5 +1,4 @@
 import {navigator, page} from './script/function/const.js';
-import fetchRequest from './script/deletefunction/fetchRequest.js';
 import {preload} from './script/function/preload.js';
 import {renderFooter} from './script/module/render/renderFooter.js';
 import {headerController} from './script/module/headerController.js';
@@ -15,8 +14,8 @@ const init = () => {
   fetchRequestAlt('top-headlines?country=',
       searchSelect.value,
       rLatestNews,
-      navigator.pageSize,
-      navigator.page,
+      navigator.pageSizeNews,
+      navigator.pageNews,
   );
   page.append(renderFooter());
 

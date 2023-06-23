@@ -1,7 +1,8 @@
+import {navigator} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
-import { fetchRequestAlt } from '../../function/fetch.js';
-import { paginationController } from '../pageController.js';
+import {getPromiseAll} from '../getPromisAll.js';
+import {renderPagination} from './renderPagination.js';
 
 
 export const rSearchNews = async (data) => {
@@ -31,32 +32,43 @@ export const rSearchNews = async (data) => {
   });
 
   const newsList = createElement('ul', {
-    className: 'list', 
+    className: 'list',
   });
-
-  const {pagination, linkBack, linkNext} = paginationController(data);
-  const inputSelect = document.querySelector('.form-search__select');
   const inputSearch = document.querySelector('.form-search__input');
-  linkNext.addEventListener('click', () => {
-    navigator.page += 1;
+  const inputSelect = document.querySelector('.form-search__select');
+
+  const {
+    pagination,
+    btnBack,
+    btnNext,
+  } = renderPagination(data, navigator.pageNewsSearch, navigator.pageSizeNewsSearch);
+
+  console.log('navigator.pageNewsSearch: ', navigator.pageNewsSearch);
+  console.log('data.totalResults: ', data.totalResults);
+  console.log('data.articles.length: ', data.articles.length);
+
+  if (navigator.pageNewsSearch >= data.totalResults / navigator.pageSizeNewsSearch) {
+    btnNext?.setAttribute('disabled', 'disabled');
+  } else {
+    btnNext?.removeAttribute('disabled');
+  }
+  btnNext.addEventListener('click', () => {
+    navigator.pageNewsSearch += 1;
+    console.log('navigator.pageNewsSearchs: ', navigator.pageNewsSearch);
     section.remove();
-    fetchRequestAlt('everything?q=',
-        inputSearch.value,
-        rSearchNews,
-        navigator.pageSize,
-        navigator.page,
-    );
+    getPromiseAll(inputSearch.value, inputSelect.value);
   });
 
-  linkBack.addEventListener('click', () => {
-    navigator.page -= 1;
+  if (navigator.pageNewsSearch <= 1) {
+    btnBack?.setAttribute('disabled', 'disabled');
+  } else {
+    btnBack?.removeAttribute('disabled');
+  }
+
+  btnBack.addEventListener('click', () => {
+    navigator.pageNewsSearch -= 1;
     section.remove();
-    fetchRequestAlt('everything?q=',
-        inputSearch.value,
-        rSearchNews,
-        navigator.pageSize,
-        navigator.page,
-    );
+    getPromiseAll(inputSearch.value, inputSelect.value);
   });
   titleWrapper.prepend(pagination);
 

@@ -1,12 +1,11 @@
-import { navigator } from '../../function/const.js';
+import {navigator} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
 import {fetchRequestAlt} from '../../function/fetch.js';
-import {paginationController} from '../pageController.js';
+import {renderPagination} from './renderPagination.js';
 
 
 export const rLatestNews = async (data) => {
-  console.log('data: ', data);
   const section = createElement('section', {
     className: 'latest-news',
   });
@@ -31,10 +30,21 @@ export const rLatestNews = async (data) => {
     className: 'list',
   });
   const inputSelect = document.querySelector('.form-search__select');
-console.log(navigator);
-  const {pagination, linkBack, linkNext} = paginationController(data);
-  linkNext.addEventListener('click', () => {
+  console.log(navigator);
+  const {
+    pagination,
+    btnBack,
+    btnNext,
+  } = renderPagination(data, navigator.pageNews, navigator.pageSizeNews);
+
+  if (navigator.pageNews >= data.totalResults / navigator.pageSizeNews) {
+    btnNext?.setAttribute('disabled', 'disabled');
+  } else {
+    btnNext?.removeAttribute('disabled');
+  }
+  btnNext.addEventListener('click', () => {
     navigator.pageNews += 1;
+    console.log('navigator.pageNews: ', navigator.pageNews);
     section.remove();
     fetchRequestAlt('top-headlines?country=',
         inputSelect.value,
@@ -44,7 +54,13 @@ console.log(navigator);
     );
   });
 
-  linkBack.addEventListener('click', () => {
+  if (navigator.pageNews <= 1) {
+    btnBack?.setAttribute('disabled', 'disabled');
+  } else {
+    btnBack?.removeAttribute('disabled');
+  }
+
+  btnBack.addEventListener('click', () => {
     navigator.pageNews -= 1;
     section.remove();
     fetchRequestAlt('top-headlines?country=',

@@ -1,14 +1,12 @@
-import { navigator } from '../function/const.js';
 import {createElement} from '../function/createElem.js';
 
-export const paginationController = ({totalResults, articles}) => {
-  console.log('articles: ', articles);
+  const renderPagination = (data) => {
   const pagination = createElement('div', {
     className: 'pagination',
   });
 
   const linkBack = createElement('a', {
-    className: 'pagination__link pagination__link-back',
+    className: 'pagination__link',
     href: '#',
     innerHTML: `
       <svg width="29" height="19" viewBox="0 0 29 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -16,8 +14,9 @@ export const paginationController = ({totalResults, articles}) => {
       </svg>            
     `,
   });
+
   const linkNext = createElement('a', {
-    className: 'pagination__link pagination__link-next',
+    className: 'pagination__link',
     href: '#',
     innerHTML: `
       <svg width="29" height="19" viewBox="0 0 29 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -26,16 +25,6 @@ export const paginationController = ({totalResults, articles}) => {
     `,
   });
 
-  const nowNewsCount = createElement('p', {
-    className: 'pagination__item',
-    textContent: articles.length * navigator.pageNews,
-  });
-
-  const allNewsCount = createElement('p', {
-    className: 'pagination__item',
-    textContent: totalResults,
-  });
-  pagination.append(linkBack, nowNewsCount, allNewsCount, linkNext);
 
   return {pagination, linkBack, linkNext};
 };

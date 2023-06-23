@@ -1,5 +1,6 @@
-import { main } from './const.js';
+import {main} from './const.js';
 import {createElement} from './createElem.js';
+import {scrollController} from './scrollControl.js';
 
 export const showError = (err) =>
 // loadStyle('style/showEror.css');
@@ -44,6 +45,7 @@ export const showError = (err) =>
       elem.addEventListener('click', (e) => {
         const target = e.target;
         if (elem === target || target.closest('.error__close')) {
+          scrollController.enabledScroll();
           elem.remove();
         }
       });
