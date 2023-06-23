@@ -1,5 +1,7 @@
 import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
+import { fetchRequestAlt } from '../../function/fetch.js';
+import { paginationController } from '../pageController.js';
 
 
 export const rSearchNews = async (data) => {
@@ -29,14 +31,42 @@ export const rSearchNews = async (data) => {
   });
 
   const newsList = createElement('ul', {
-    className: 'list',
+    className: 'list', 
   });
+
+  const {pagination, linkBack, linkNext} = paginationController(data);
+  const inputSelect = document.querySelector('.form-search__select');
+  const inputSearch = document.querySelector('.form-search__input');
+  linkNext.addEventListener('click', () => {
+    navigator.page += 1;
+    section.remove();
+    fetchRequestAlt('everything?q=',
+        inputSearch.value,
+        rSearchNews,
+        navigator.pageSize,
+        navigator.page,
+    );
+  });
+
+  linkBack.addEventListener('click', () => {
+    navigator.page -= 1;
+    section.remove();
+    fetchRequestAlt('everything?q=',
+        inputSearch.value,
+        rSearchNews,
+        navigator.pageSize,
+        navigator.page,
+    );
+  });
+  titleWrapper.prepend(pagination);
 
   const searchNewsArr = data.articles.map((item) => createItem(item));
 
   newsList.append(...searchNewsArr);
   container.append(newsList);
   section.append(titleWrapper, container);
+
+
   return section;
 };
 

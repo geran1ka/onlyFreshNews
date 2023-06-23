@@ -73,7 +73,7 @@ export const renderHeader = () => {
   });
 
   const optionFirst = createElement('option', {
-    value: 'us',
+    value: 'ru',
     textContent: 'Россия',
   });
 

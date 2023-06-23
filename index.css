@@ -2,6 +2,7 @@
 @import 'style/normalize.css';
 @import 'style/global.css';
 @import 'style/header.css';
+@import 'style/pagination.css';
 @import 'style/search-news.css';
 @import 'style/latest-news.css';
 @import 'style/item.css';
