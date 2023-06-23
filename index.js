@@ -1,4 +1,4 @@
-import {main, page} from './script/function/const.js';
+import {page} from './script/function/const.js';
 import fetchRequest from './script/deletefunction/fetchRequest.js';
 import {preload} from './script/function/preload.js';
 import {renderFooter} from './script/module/render/renderFooter.js';
@@ -12,7 +12,7 @@ const init = () => {
   preload.show();
   const {header, form, searchInput, searchSelect} = renderHeader();
   page.prepend(header);
-  fetchRequestAlt('top-headlines?country=', searchSelect.value, rLatestNews, 9, 2);
+  fetchRequestAlt('top-headlines?country=', searchSelect.value, rLatestNews, 8, 1);
   page.append(renderFooter());
 
   headerController(form, searchInput);

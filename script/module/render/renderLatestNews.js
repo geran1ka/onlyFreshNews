@@ -1,5 +1,5 @@
 import {createElement} from '../../function/createElem.js';
-import {liLoad} from '../../function/createItem.js';
+import {createItem, liLoad} from '../../function/createItem.js';
 import {showError} from '../../function/showError.js';
 
 export const rLatestNews = async (data) => {
@@ -27,13 +27,10 @@ export const rLatestNews = async (data) => {
     className: 'list',
   });
 
-  const newsArr = data.articles.map(async (item) => await liLoad(item));
-  return Promise.all([...newsArr])
-      .then(data => {
-        newsList.append(...data);
-        container.append(newsList);
-        section.append(titleWrapper, container);
-        return section;
-      })
-      .catch(err => showError());
+  const newsArr = data.articles.map((item) => createItem(item));
+  newsList.append(...newsArr);
+  container.append(newsList);
+  section.append(titleWrapper, container);
+ 
+  return section;
 };

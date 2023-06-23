@@ -16,10 +16,39 @@
   flex-direction: column;
   gap: 10px;
 }
+.item__img-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.item__overlay-load {
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.item__overlay-load svg {
+  max-width: 100px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+}
 
 
 .item__image {
   max-height: 200px;
+  max-width: 270px;
   height: 100%;
   object-fit: cover;
 }

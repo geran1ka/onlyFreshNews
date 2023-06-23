@@ -1,7 +1,5 @@
-import {endPagination, startPagination} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
-import {liLoad} from '../../function/createItem.js';
-import {showError} from '../../function/showError.js';
+import {createItem} from '../../function/createItem.js';
 
 
 export const rSearchNews = async (data) => {
@@ -34,15 +32,12 @@ export const rSearchNews = async (data) => {
     className: 'list',
   });
 
-  const searchNewsArr = data.articles.map(async (item) => await liLoad(item));
-  return Promise.all([...searchNewsArr])
-      .then(data => {
-        newsList.append(...data);
-        container.append(newsList);
-        section.append(titleWrapper, container);
-        return section;
-      })
-      .catch(err => showError(err));
+  const searchNewsArr = data.articles.map((item) => createItem(item));
+
+  newsList.append(...searchNewsArr);
+  container.append(newsList);
+  section.append(titleWrapper, container);
+  return section;
 };
 
 
