@@ -16,7 +16,7 @@ export const headerController = (form) => {
         Promise.all([
           fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}&pageSize=9&page=1`, {
             headers: {
-              'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
+              'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
             },
           })
               .then(response => response.json())
@@ -26,7 +26,7 @@ export const headerController = (form) => {
 
           fetch(`https://newsapi.org/v2/top-headlines?country=${search.country}&pageSize=6&page=1`, {
             headers: {
-              'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
+              'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
             },
           })
               .then(response => response.json())

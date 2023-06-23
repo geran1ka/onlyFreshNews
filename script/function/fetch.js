@@ -5,7 +5,7 @@ export const fetchRequestAlt = (postfix, value, cb, pageSize, page, flag = false
   try {
     fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSize}&page=${page}`, {
       headers: {
-        'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
+        'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
       },
     })
         .then(response => response.json())
