@@ -1,7 +1,7 @@
 import {main} from './const.js';
 import {preload} from './preload.js';
 import {showError} from './showError.js';
-export const fetchRequestAlt = (postfix, value, cb, n = 8) => {
+export const fetchRequestAlt = (postfix, value, cb, n = 18, flag = false) => {
   try {
     fetch(`https://newsapi.org/v2/${postfix}${value}`, {
       headers: {
@@ -11,8 +11,12 @@ export const fetchRequestAlt = (postfix, value, cb, n = 8) => {
         .then(response => response.json())
         .then(data => cb(data, n))
         .then(section => {
-          main.append(section);
           preload.remove();
+          if (!flag) {
+            main.append(section);
+          } else {
+            return section;
+          }
         })
         .catch(err => {
           preload.remove();
@@ -23,3 +27,4 @@ export const fetchRequestAlt = (postfix, value, cb, n = 8) => {
     return showError(err);
   }
 };
+

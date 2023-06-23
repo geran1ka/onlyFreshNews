@@ -18,7 +18,7 @@ export const headerController = (form) => {
 
       try {
         Promise.all([
-          fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}`, {
+          fetch(`https://newsapi.org/v2/everything?q=${search.search ? search.search : ''}&pageSize=6&page=1`, {
             headers: {
               'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
             },
