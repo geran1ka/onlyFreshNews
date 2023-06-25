@@ -5,8 +5,20 @@ export const body = document.querySelector('.page');
 export const page = document.querySelector('.page__wrapper');
 export const main = document.querySelector('.main');
 export const navigator = {
-  pageNews: 1,
+  _pageNews: 1,
+  get pageNews() {
+    return this._pageNews;
+  },
+  set pageNews(value) {
+    this._pageNews = value;
+  },
   pageSizeNews: 10,
-  pageNewsSearch: 1,
+  _pageNewsSearch: 1,
+  get pageNewsSearch() {
+    return this._pageNewsSearch;
+  },
+  set pageNewsSearch(value) {
+    this._pageNewsSearch = value;
+  },
   pageSizeNewsSearch: 10,
 };

@@ -13,7 +13,6 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
         fetchRequestSearch(
             'everything?q=',
             inputSearch || '',
-            rSearchNews,
             8,
             navigator.pageNewsSearch,
             true,
@@ -21,16 +20,20 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
         fetchRequestSearch(
             'top-headlines?country=',
             inputSelect,
-            rLatestNews,
             4,
             navigator.pageNews,
             true,
         ),
       ])
-          .then(data => {
-            main.textContent = '';
-            main.append(data[0]);
-            main.append(data[1]);
+          .then(responses => {
+            console.log('responses: ', responses);
+            return Promise.all(responses.map(response => response.json()));
+          })
+          .then(data => Promise.all([rSearchNews(data[0]), rLatestNews(data[1])]))
+          .then(sections => {
+            for (const section of sections) {
+              main.append(section);
+            }
           })
           .catch(err => {
             scrollController.disabledScroll();
@@ -42,12 +45,18 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
     }
   } else {
     main.textContent = '';
-    fetchRequestAlt(
+    fetchRequestSearch(
         'top-headlines?country=',
         inputSelect,
-        rLatestNews,
-        navigator.pageSizeNews,
+        8,
         navigator.pageNews,
-    );
+    )
+        .then(response => response.json())
+        .then(data => rLatestNews(data))
+        .then(section => main.append(section))
+        .catch(err => {
+          scrollController.disabledScroll();
+          return showError(err);
+        });
   }
 };

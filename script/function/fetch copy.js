@@ -32,13 +32,29 @@ export const fetchRequestAlt = (postfix, value, cb, pageSizeNews, pageNews, flag
   }
 };
 
-export const fetchRequestSearch = (postfix, value, pageSizeNews, pageNews) => {
+export const fetchRequestSearch = (postfix, value, cb, pageSizeNews, pageNews, flag = false) => {
   try {
     return fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSizeNews}&page=${pageNews}`, {
       headers: {
         'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
       },
-    });
+    })
+        .then(response => response.json())
+        .then(data => cb(data))
+        .then(section => {
+          preload.remove();
+          if (!flag) {
+            main.append(section);
+          } else {
+            return section;
+          }
+          scrollController.enabledScroll();
+        })
+        .catch(err => {
+          preload.remove();
+          scrollController.disabledScroll();
+          return showError(err);
+        });
   } catch (err) {
     preload.remove();
     scrollController.disabledScroll();

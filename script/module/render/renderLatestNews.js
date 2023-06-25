@@ -81,7 +81,6 @@ export const rLatestNews = async (data) => {
 
     return section;
   } else {
-    console.log('2');
     const section = document.querySelector('.latest-news ');
     const container = section.querySelector('.container__latest-news ');
     container.textContent = '';
@@ -92,6 +91,7 @@ export const rLatestNews = async (data) => {
     newsList.append(...newsArr);
     btnNext.addEventListener('click', () => {
       navigator.pageNews += 1;
+      console.log('navigator.pageNews: ', navigator.pageNews);
       container.textContent = '';
       fetchRequestAlt('top-headlines?country=',
           inputSelect.value,
