@@ -3,14 +3,12 @@ import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
 import {fetchRequestSearch} from '../../function/fetch.js';
 import {preload} from '../../function/preload.js';
-import {scrollController} from '../controll/scrollControl.js';
+import {scrollController} from '../../function/scrollControl.js';
 import {showError} from '../../function/showError.js';
 import {renderPagination} from './renderPagination.js';
 
 
 export const rLatestNews = async (data) => {
-  const flag = await document.querySelector('.search-news');
-  console.log('flag: ', flag);
   const inputSelect = document.querySelector('.form-search__select');
   const {
     pagination,
@@ -31,6 +29,7 @@ export const rLatestNews = async (data) => {
   }
 
   if (!document.querySelector('.latest-news')) {
+    console.log('1');
     const section = createElement('section', {
       className: 'latest-news',
     });
@@ -60,6 +59,7 @@ export const rLatestNews = async (data) => {
       navigator.pageNews += 1;
       preload.show();
       container.style.height = container.clientHeight + 'px';
+      console.log('container.clientHeight: ', container.clientHeight);
       container.textContent = '';
       fetchRequestSearch('top-headlines?country=',
           inputSelect.value,

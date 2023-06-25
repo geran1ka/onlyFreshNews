@@ -1,12 +1,12 @@
 import {main, navigator, page} from './script/function/const.js';
 import {preload} from './script/function/preload.js';
 import {renderFooter} from './script/module/render/renderFooter.js';
-import {headerController} from './script/module/headerController.js';
 import {renderHeader} from './script/module/render/renderHeader.js';
 import {rLatestNews} from './script/module/render/renderLatestNews.js';
 import {fetchRequestSearch} from './script/function/fetch.js';
-import { scrollController } from './script/function/scrollControl.js';
-import { showError } from './script/function/showError.js';
+import {showError} from './script/function/showError.js';
+import {scrollController} from './script/module/controll/scrollControl.js';
+import {headerController} from './script/module/controll/headerController.js';
 
 const init = () => {
   preload.show();

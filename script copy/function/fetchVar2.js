@@ -6,7 +6,7 @@ export const fetchRequestAlt = (postfix, value, cb, pageSizeNews, pageNews, flag
   try {
     fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSizeNews}&page=${pageNews}`, {
       headers: {
-        'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
+        'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
       },
     })
         .then(response => response.json())
@@ -14,6 +14,8 @@ export const fetchRequestAlt = (postfix, value, cb, pageSizeNews, pageNews, flag
         .then(section => {
           preload.remove();
           scrollController.enabledScroll();
+          section.querySelector('.container').style.height = 'auto';
+
           if (!flag) {
             main.append(section);
           } else {
@@ -36,13 +38,15 @@ export const fetchRequestSearch = (postfix, value, cb, pageSizeNews, pageNews, f
   try {
     return fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSizeNews}&page=${pageNews}`, {
       headers: {
-        'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
+        'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
       },
     })
         .then(response => response.json())
         .then(data => cb(data))
         .then(section => {
           preload.remove();
+          section.querySelector('.container').style.height = 'auto';
+
           if (!flag) {
             main.append(section);
           } else {

@@ -1,8 +1,8 @@
 import {main, navigator} from '../function/const.js';
-import {fetchRequestAlt, fetchRequestSearch} from '../function/fetch.js';
+import {fetchRequestSearch} from '../function/fetch.js';
 import {preload} from '../function/preload.js';
-import {scrollController} from '../function/scrollControl.js';
 import {showError} from '../function/showError.js';
+import {scrollController} from './controll/scrollControl.js';
 import {rLatestNews} from './render/renderLatestNews.js';
 import {rSearchNews} from './render/renderSearchNews.js';
 
@@ -13,28 +13,22 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
         fetchRequestSearch(
             'everything?q=',
             inputSearch || '',
-            8,
+            navigator.pageSizeNewsSearch,
             navigator.pageNewsSearch,
-            true,
         ),
         fetchRequestSearch(
             'top-headlines?country=',
             inputSelect,
-            4,
+            navigator.pageSizeNews / 2,
             navigator.pageNews,
-            true,
         ),
       ])
-          .then(responses => {
-            console.log('responses: ', responses);
-            return Promise.all(responses.map(response => response.json()));
-          })
+          .then(responses => Promise.all(responses.map(response => response.json())))
           .then(data => Promise.all([rSearchNews(data[0]), rLatestNews(data[1])]))
           .then(sections => {
             preload.remove();
             for (const section of sections) {
               section.querySelectorAll('.container')[1].style.height = 'auto';
-              console.log(section.querySelectorAll('.container')[1]);
               main.append(section);
             }
           })
@@ -51,7 +45,7 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
     fetchRequestSearch(
         'top-headlines?country=',
         inputSelect,
-        8,
+        navigator.pageSizeNews,
         navigator.pageNews,
     )
         .then(response => response.json())

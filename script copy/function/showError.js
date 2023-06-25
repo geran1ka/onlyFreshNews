@@ -1,6 +1,6 @@
 import {main} from './const.js';
 import {createElement} from './createElem.js';
-import {scrollController} from '../module/controll/scrollControl.js';
+import {scrollController} from './scrollControl.js';
 
 export const showError = (err) =>
 // loadStyle('style/showEror.css');

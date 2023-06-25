@@ -1,5 +1,5 @@
 import {main, navigator} from '../function/const.js';
-import {fetchRequestAlt, fetchRequestSearch} from '../function/fetch.js';
+import {fetchRequestAlt, fetchRequestSearch} from '../function/fetchVar2.js';
 import {preload} from '../function/preload.js';
 import {scrollController} from '../function/scrollControl.js';
 import {showError} from '../function/showError.js';
@@ -28,6 +28,7 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
         ),
       ])
           .then(data => {
+            preload.remove()
             main.textContent = '';
             main.append(data[0]);
             main.append(data[1]);

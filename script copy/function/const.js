@@ -12,7 +12,7 @@ export const navigator = {
   set pageNews(value) {
     this._pageNews = value;
   },
-  pageSizeNews: 8,
+  pageSizeNews: 10,
   _pageNewsSearch: 1,
   get pageNewsSearch() {
     return this._pageNewsSearch;
@@ -20,5 +20,5 @@ export const navigator = {
   set pageNewsSearch(value) {
     this._pageNewsSearch = value;
   },
-  pageSizeNewsSearch: 8,
+  pageSizeNewsSearch: 10,
 };

@@ -1,5 +1,5 @@
-import { navigator } from '../function/const.js';
-import {getPromiseAll} from './getPromisAll.js';
+import {navigator} from '../../function/const.js';
+import {getPromiseAll} from '../getPromisAll.js';
 
 
 export const headerController = (form, searchSelect) => {

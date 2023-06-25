@@ -1,6 +1,7 @@
 import {createElement} from '../../function/createElem.js';
 
 export const renderPagination = ({totalResults, articles}, pageNumber, pageSize) => {
+  console.log('articles: ', articles);
   const pagination = createElement('div', {
     className: 'pagination',
   });

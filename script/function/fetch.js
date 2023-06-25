@@ -1,6 +1,6 @@
 import {main} from './const.js';
 import {preload} from './preload.js';
-import {scrollController} from './scrollControl.js';
+import {scrollController} from '../module/controll/scrollControl.js';
 import {showError} from './showError.js';
 export const fetchRequestAlt = (postfix, value, cb, pageSizeNews, pageNews, flag = false) => {
   try {
