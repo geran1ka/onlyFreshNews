@@ -1,12 +1,14 @@
-import {navigator} from '../../function/const.js';
+import {main, navigator} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
-import {fetchRequestAlt} from '../../function/fetch.js';
+import {fetchRequestSearch} from '../../function/fetch.js';
+import {preload} from '../../function/preload.js';
+import {scrollController} from '../../function/scrollControl.js';
+import {showError} from '../../function/showError.js';
 import {renderPagination} from './renderPagination.js';
 
 
 export const rLatestNews = async (data) => {
- 
   const inputSelect = document.querySelector('.form-search__select');
   const {
     pagination,
@@ -56,24 +58,45 @@ export const rLatestNews = async (data) => {
     btnNext.addEventListener('click', () => {
       navigator.pageNews += 1;
       container.textContent = '';
-      fetchRequestAlt('top-headlines?country=',
+      fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
-          rLatestNews,
           navigator.pageSizeNews,
           navigator.pageNews,
-      );
+      )
+          .then(response => response.json())
+          .then(data => rLatestNews(data))
+          .then(section => {
+            preload.remove();
+            scrollController.enabledScroll();
+            main.append(section);
+          })
+          .catch(err => {
+            preload.remove();
+            scrollController.disabledScroll();
+            return showError(err);
+          });
     });
 
 
     btnBack.addEventListener('click', () => {
       navigator.pageNews -= 1;
       container.textContent = '';
-      fetchRequestAlt('top-headlines?country=',
+      fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
-          rLatestNews,
           navigator.pageSizeNews,
           navigator.pageNews,
-      );
+      ).then(response => response.json())
+          .then(data => rLatestNews(data))
+          .then(section => {
+            preload.remove();
+            scrollController.enabledScroll();
+            main.append(section);
+          })
+          .catch(err => {
+            preload.remove();
+            scrollController.disabledScroll();
+            return showError(err);
+          });
     });
     container.append(newsList);
     section.append(titleWrapper, container);
@@ -93,24 +116,44 @@ export const rLatestNews = async (data) => {
       navigator.pageNews += 1;
       console.log('navigator.pageNews: ', navigator.pageNews);
       container.textContent = '';
-      fetchRequestAlt('top-headlines?country=',
+      fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
-          rLatestNews,
           navigator.pageSizeNews,
           navigator.pageNews,
-      );
+      ).then(response => response.json())
+          .then(data => rLatestNews(data))
+          .then(section => {
+            preload.remove();
+            scrollController.enabledScroll();
+            main.append(section);
+          })
+          .catch(err => {
+            preload.remove();
+            scrollController.disabledScroll();
+            return showError(err);
+          });
     });
 
 
     btnBack.addEventListener('click', () => {
       navigator.pageNews -= 1;
       container.textContent = '';
-      fetchRequestAlt('top-headlines?country=',
+      fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
-          rLatestNews,
           navigator.pageSizeNews,
           navigator.pageNews,
-      );
+      ).then(response => response.json())
+          .then(data => rLatestNews(data))
+          .then(section => {
+            preload.remove();
+            scrollController.enabledScroll();
+            main.append(section);
+          })
+          .catch(err => {
+            preload.remove();
+            scrollController.disabledScroll();
+            return showError(err);
+          });
     });
     container.append(pagination, newsList);
 
