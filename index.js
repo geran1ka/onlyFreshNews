@@ -19,7 +19,7 @@ const init = () => {
   );
   page.append(renderFooter());
 
-  headerController(form, searchInput);
+  headerController(form, searchSelect);
 };
 
 init();

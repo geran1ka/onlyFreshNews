@@ -12,7 +12,7 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
       Promise.all([
         fetch(`https://newsapi.org/v2/everything?q=${inputSearch ? inputSearch : ''}&pageSize=${navigator.pageSizeNewsSearch}&page=${navigator.pageNewsSearch}`, {
           headers: {
-            'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
+            'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
           },
         })
             .then(response => response.json())
@@ -24,7 +24,7 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
 
         fetch(`https://newsapi.org/v2/top-headlines?country=${inputSelect}&pageSize=${navigator.pageSizeNews}&page=${navigator.pageNews}`, {
           headers: {
-            'X-Api-Key': '72293b7bac104a43a1b886e742588fd6',
+            'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
           },
         })
             .then(response => response.json())

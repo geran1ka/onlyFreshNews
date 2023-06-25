@@ -27,12 +27,12 @@ export const renderPagination = ({totalResults, articles}, pageNumber, pageSize)
 
   const nowNewsCount = createElement('p', {
     className: 'pagination__item',
-    textContent: pageSize * pageNumber < totalResults ? pageSize * pageNumber : totalResults,
+    textContent: pageNumber,
   });
 
   const allNewsCount = createElement('p', {
     className: 'pagination__item',
-    textContent: totalResults,
+    textContent: Math.ceil(totalResults / pageSize),
   });
   pagination.append(btnBack, nowNewsCount, allNewsCount, btnNext);
 
