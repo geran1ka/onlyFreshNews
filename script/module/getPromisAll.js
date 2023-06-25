@@ -31,7 +31,10 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
           })
           .then(data => Promise.all([rSearchNews(data[0]), rLatestNews(data[1])]))
           .then(sections => {
+            preload.remove();
             for (const section of sections) {
+              section.querySelectorAll('.container')[1].style.height = 'auto';
+              console.log(section.querySelectorAll('.container')[1]);
               main.append(section);
             }
           })
@@ -53,7 +56,10 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
     )
         .then(response => response.json())
         .then(data => rLatestNews(data))
-        .then(section => main.append(section))
+        .then(section => {
+          section.querySelectorAll('.container')[1].style.heigth = 'auto';
+          return main.append(section);
+        })
         .catch(err => {
           scrollController.disabledScroll();
           return showError(err);

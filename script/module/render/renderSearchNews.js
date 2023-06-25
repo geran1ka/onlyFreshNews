@@ -1,6 +1,7 @@
 import {navigator} from '../../function/const.js';
 import {createElement} from '../../function/createElem.js';
 import {createItem} from '../../function/createItem.js';
+import {preload} from '../../function/preload.js';
 import {getPromiseAll} from '../getPromisAll.js';
 import {renderPagination} from './renderPagination.js';
 
@@ -58,16 +59,19 @@ export const rSearchNews = async (data) => {
 
 
     btnNext.addEventListener('click', () => {
+      preload.show();
       navigator.pageNewsSearch += 1;
-      console.log('navigator.pageNewsSearchs: ', navigator.pageNewsSearch);
-      section.remove();
+      container.style.height = container.clientHeight + 'px';
+      container.textContent = '';
       getPromiseAll(inputSearch.value, inputSelect.value);
     });
 
 
     btnBack.addEventListener('click', () => {
+      preload.show();
       navigator.pageNewsSearch -= 1;
-      section.remove();
+      container.style.height = container.clientHeight + 'px';
+      container.textContent = '';
       getPromiseAll(inputSearch.value, inputSelect.value);
     });
 
@@ -89,7 +93,9 @@ export const rSearchNews = async (data) => {
     });
 
     btnNext.addEventListener('click', () => {
+      preload.show();
       navigator.pageNewsSearch += 1;
+      container.style.height = container.clientHeight + 'px';
       container.textContent = '';
       getPromiseAll(inputSearch.value, inputSelect.value);
     });
@@ -98,7 +104,9 @@ export const rSearchNews = async (data) => {
     newsList.append(...searchNewsArr);
 
     btnBack.addEventListener('click', () => {
+      preload.show();
       navigator.pageNewsSearch -= 1;
+      container.style.height = container.clientHeight + 'px';
       container.textContent = '';
       getPromiseAll(inputSearch.value, inputSelect.value);
     });

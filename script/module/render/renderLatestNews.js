@@ -57,6 +57,9 @@ export const rLatestNews = async (data) => {
     newsList.append(...newsArr);
     btnNext.addEventListener('click', () => {
       navigator.pageNews += 1;
+      preload.show();
+      container.style.height = container.clientHeight + 'px';
+      console.log('container.clientHeight: ', container.clientHeight);
       container.textContent = '';
       fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
@@ -68,6 +71,7 @@ export const rLatestNews = async (data) => {
           .then(section => {
             preload.remove();
             scrollController.enabledScroll();
+            container.style.height = 'auto';
             main.append(section);
           })
           .catch(err => {
@@ -80,6 +84,8 @@ export const rLatestNews = async (data) => {
 
     btnBack.addEventListener('click', () => {
       navigator.pageNews -= 1;
+      preload.show();
+      container.style.height = container.clientHeight + 'px';
       container.textContent = '';
       fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
@@ -90,6 +96,7 @@ export const rLatestNews = async (data) => {
           .then(section => {
             preload.remove();
             scrollController.enabledScroll();
+            container.style.height = 'auto';
             main.append(section);
           })
           .catch(err => {
@@ -114,7 +121,8 @@ export const rLatestNews = async (data) => {
     newsList.append(...newsArr);
     btnNext.addEventListener('click', () => {
       navigator.pageNews += 1;
-      console.log('navigator.pageNews: ', navigator.pageNews);
+      preload.show();
+      container.style.height = container.clientHeight + 'px';
       container.textContent = '';
       fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
@@ -125,6 +133,7 @@ export const rLatestNews = async (data) => {
           .then(section => {
             preload.remove();
             scrollController.enabledScroll();
+            container.style.height = 'auto';
             main.append(section);
           })
           .catch(err => {
@@ -137,6 +146,8 @@ export const rLatestNews = async (data) => {
 
     btnBack.addEventListener('click', () => {
       navigator.pageNews -= 1;
+      preload.show();
+      container.style.height = container.clientHeight + 'px';
       container.textContent = '';
       fetchRequestSearch('top-headlines?country=',
           inputSelect.value,
@@ -147,6 +158,7 @@ export const rLatestNews = async (data) => {
           .then(section => {
             preload.remove();
             scrollController.enabledScroll();
+            container.style.height = 'auto';
             main.append(section);
           })
           .catch(err => {
