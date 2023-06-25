@@ -6,36 +6,8 @@ import {renderPagination} from './renderPagination.js';
 
 
 export const rSearchNews = async (data) => {
-  console.log('data: ', data);
-  const section = createElement('section', {
-    className: 'search-news',
-  });
-
-  const titleWrapper = createElement('div', {
-    className: 'title-wrapper',
-  }, {
-    append: createElement('div', {
-      className: 'container',
-    }, {
-      append: createElement('h2', {
-        className: 'title',
-        textContent: `
-        По Вашему запросу 
-        ${document.querySelector('.form-search__input')?.value} 
-        найдено ${data.totalResults} результатов
-        `,
-      }),
-    }),
-  });
-  const container = createElement('div', {
-    className: 'container',
-  });
-
-  const newsList = createElement('ul', {
-    className: 'list',
-  });
-  const inputSearch = document.querySelector('.form-search__input');
   const inputSelect = document.querySelector('.form-search__select');
+  const inputSearch = document.querySelector('.form-search__input');
 
   const {
     pagination,
@@ -43,21 +15,11 @@ export const rSearchNews = async (data) => {
     btnNext,
   } = renderPagination(data, navigator.pageNewsSearch, navigator.pageSizeNewsSearch);
 
-  console.log('navigator.pageNewsSearch: ', navigator.pageNewsSearch);
-  console.log('data.totalResults: ', data.totalResults);
-  console.log('data.articles.length: ', data.articles.length);
-
   if (navigator.pageNewsSearch >= data.totalResults / navigator.pageSizeNewsSearch) {
     btnNext?.setAttribute('disabled', 'disabled');
   } else {
     btnNext?.removeAttribute('disabled');
   }
-  btnNext.addEventListener('click', () => {
-    navigator.pageNewsSearch += 1;
-    console.log('navigator.pageNewsSearchs: ', navigator.pageNewsSearch);
-    section.remove();
-    getPromiseAll(inputSearch.value, inputSelect.value);
-  });
 
   if (navigator.pageNewsSearch <= 1) {
     btnBack?.setAttribute('disabled', 'disabled');
@@ -65,21 +27,86 @@ export const rSearchNews = async (data) => {
     btnBack?.removeAttribute('disabled');
   }
 
-  btnBack.addEventListener('click', () => {
-    navigator.pageNewsSearch -= 1;
-    section.remove();
-    getPromiseAll(inputSearch.value, inputSelect.value);
-  });
-  titleWrapper.prepend(pagination);
+  if (!document.querySelector('.search-news')) {
+    const section = createElement('section', {
+      className: 'search-news',
+    });
 
-  const searchNewsArr = data.articles.map((item) => createItem(item));
+    const titleWrapper = createElement('div', {
+      className: 'title-wrapper',
+    }, {
+      append: createElement('div', {
+        className: 'container',
+      }, {
+        append: createElement('h2', {
+          className: 'title',
+          textContent: `
+          По Вашему запросу 
+          ${document.querySelector('.form-search__input')?.value} 
+          найдено ${data.totalResults} результатов
+          `,
+        }),
+      }),
+    });
+    const container = createElement('div', {
+      className: 'container container__search-news',
+    });
 
-  newsList.append(...searchNewsArr);
-  container.append(newsList);
-  section.append(titleWrapper, container);
+    const newsList = createElement('ul', {
+      className: 'list',
+    });
 
 
-  return section;
+    btnNext.addEventListener('click', () => {
+      navigator.pageNewsSearch += 1;
+      console.log('navigator.pageNewsSearchs: ', navigator.pageNewsSearch);
+      section.remove();
+      getPromiseAll(inputSearch.value, inputSelect.value);
+    });
+
+
+    btnBack.addEventListener('click', () => {
+      navigator.pageNewsSearch -= 1;
+      section.remove();
+      getPromiseAll(inputSearch.value, inputSelect.value);
+    });
+
+
+    const searchNewsArr = data.articles.map((item) => createItem(item));
+
+    newsList.append(...searchNewsArr);
+    container.append(newsList);
+    section.append(titleWrapper, container);
+    container.prepend(pagination);
+
+    return section;
+  } else {
+    const section = document.querySelector('.search-news');
+    const container = section.querySelector('.container__search-news');
+    container.textContent = '';
+    const newsList = createElement('ul', {
+      className: 'list',
+    });
+
+    btnNext.addEventListener('click', () => {
+      navigator.pageNewsSearch += 1;
+      container.textContent = '';
+      getPromiseAll(inputSearch.value, inputSelect.value);
+    });
+
+    const searchNewsArr = data.articles.map((item) => createItem(item));
+    newsList.append(...searchNewsArr);
+
+    btnBack.addEventListener('click', () => {
+      navigator.pageNewsSearch -= 1;
+      container.textContent = '';
+      getPromiseAll(inputSearch.value, inputSelect.value);
+    });
+
+    container.append(pagination, newsList);
+
+    return section;
+  }
 };
 
 

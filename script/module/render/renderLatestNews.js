@@ -6,31 +6,8 @@ import {renderPagination} from './renderPagination.js';
 
 
 export const rLatestNews = async (data) => {
-  const section = createElement('section', {
-    className: 'latest-news',
-  });
-
-  const titleWrapper = createElement('div', {
-    className: 'title-wrapper',
-  }, {
-    append: createElement('div', {
-      className: 'container',
-    }, {
-      append: createElement('h2', {
-        className: 'title',
-        textContent: 'Свежие новости',
-      }),
-    }),
-  });
-  const container = createElement('div', {
-    className: 'container',
-  });
-
-  const newsList = createElement('ul', {
-    className: 'list',
-  });
+ 
   const inputSelect = document.querySelector('.form-search__select');
-  console.log(navigator);
   const {
     pagination,
     btnBack,
@@ -42,17 +19,6 @@ export const rLatestNews = async (data) => {
   } else {
     btnNext?.removeAttribute('disabled');
   }
-  btnNext.addEventListener('click', () => {
-    navigator.pageNews += 1;
-    console.log('navigator.pageNews: ', navigator.pageNews);
-    section.remove();
-    fetchRequestAlt('top-headlines?country=',
-        inputSelect.value,
-        rLatestNews,
-        navigator.pageSizeNews,
-        navigator.pageNews,
-    );
-  });
 
   if (navigator.pageNews <= 1) {
     btnBack?.setAttribute('disabled', 'disabled');
@@ -60,21 +26,94 @@ export const rLatestNews = async (data) => {
     btnBack?.removeAttribute('disabled');
   }
 
-  btnBack.addEventListener('click', () => {
-    navigator.pageNews -= 1;
-    section.remove();
-    fetchRequestAlt('top-headlines?country=',
-        inputSelect.value,
-        rLatestNews,
-        navigator.pageSizeNews,
-        navigator.pageNews,
-    );
-  });
-  titleWrapper.prepend(pagination);
-  const newsArr = data.articles.map((item) => createItem(item));
-  newsList.append(...newsArr);
-  container.append(newsList);
-  section.append(titleWrapper, container);
+  if (!document.querySelector('.latest-news')) {
+    console.log('1');
+    const section = createElement('section', {
+      className: 'latest-news',
+    });
 
-  return section;
+    const titleWrapper = createElement('div', {
+      className: 'title-wrapper',
+    }, {
+      append: createElement('div', {
+        className: 'container',
+      }, {
+        append: createElement('h2', {
+          className: 'title',
+          textContent: 'Свежие новости',
+        }),
+      }),
+    });
+    const container = createElement('div', {
+      className: 'container container__latest-news',
+    });
+
+    const newsList = createElement('ul', {
+      className: 'list',
+    });
+    const newsArr = data.articles.map((item) => createItem(item));
+    newsList.append(...newsArr);
+    btnNext.addEventListener('click', () => {
+      navigator.pageNews += 1;
+      container.textContent = '';
+      fetchRequestAlt('top-headlines?country=',
+          inputSelect.value,
+          rLatestNews,
+          navigator.pageSizeNews,
+          navigator.pageNews,
+      );
+    });
+
+
+    btnBack.addEventListener('click', () => {
+      navigator.pageNews -= 1;
+      container.textContent = '';
+      fetchRequestAlt('top-headlines?country=',
+          inputSelect.value,
+          rLatestNews,
+          navigator.pageSizeNews,
+          navigator.pageNews,
+      );
+    });
+    container.append(newsList);
+    section.append(titleWrapper, container);
+    container.prepend(pagination);
+
+    return section;
+  } else {
+    console.log('2');
+    const section = document.querySelector('.latest-news ');
+    const container = section.querySelector('.container__latest-news ');
+    container.textContent = '';
+    const newsList = createElement('ul', {
+      className: 'list',
+    });
+    const newsArr = data.articles.map((item) => createItem(item));
+    newsList.append(...newsArr);
+    btnNext.addEventListener('click', () => {
+      navigator.pageNews += 1;
+      container.textContent = '';
+      fetchRequestAlt('top-headlines?country=',
+          inputSelect.value,
+          rLatestNews,
+          navigator.pageSizeNews,
+          navigator.pageNews,
+      );
+    });
+
+
+    btnBack.addEventListener('click', () => {
+      navigator.pageNews -= 1;
+      container.textContent = '';
+      fetchRequestAlt('top-headlines?country=',
+          inputSelect.value,
+          rLatestNews,
+          navigator.pageSizeNews,
+          navigator.pageNews,
+      );
+    });
+    container.append(pagination, newsList);
+
+    return section;
+  }
 };
