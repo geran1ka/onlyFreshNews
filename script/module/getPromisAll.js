@@ -19,7 +19,7 @@ export const getPromiseAll = (inputSearch, inputSelect) => {
         fetchRequestSearch(
             'top-headlines?country=',
             inputSelect,
-            navigator.pageSizeNews / 2,
+            navigator.pageSizeNews,
             navigator.pageNews,
         ),
       ])
