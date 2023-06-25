@@ -34,7 +34,7 @@ export const fetchRequestAlt = (postfix, value, cb, pageSizeNews, pageNews, flag
 
 export const fetchRequestSearch = (postfix, value, cb, pageSizeNews, pageNews, flag = false) => {
   try {
-    fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSizeNews}&page=${pageNews}`, {
+    return fetch(`https://newsapi.org/v2/${postfix}${value}&pageSize=${pageSizeNews}&page=${pageNews}`, {
       headers: {
         'X-Api-Key': '5aeb6f997b174e06b6b958e60d09fcca',
       },
